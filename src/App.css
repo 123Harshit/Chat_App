@@ -505,3 +505,7 @@ img{object-fit: contain;}
 .hover-shadow-radial:hover:before, .hover-shadow-radial:focus:before, .hover-shadow-radial:active:before, .hover-shadow-radial:hover:after, .hover-shadow-radial:focus:after, .hover-shadow-radial:active:after {
      opacity: 1;
 }
+.nor-bor{
+  border: 1px solid green;
+  border-radius: 10px;
+}
