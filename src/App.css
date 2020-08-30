@@ -4,7 +4,7 @@
 
      /* Colors: */
      --white: #000000;
-     --primary-dark: #efefef;
+     --primary-dark: #eff2f9;
      --warn: #FED813;
      --primary: #ffffff;
      --suc: #56FE99;
@@ -192,7 +192,7 @@ body{background-color: var(--primary-dark) !important;}
 .h-93v{height:93vh;}
 .h-89v{height:89vh;}
 .h-84v{height:84vh;}
-.h-50v{height: 60vh !important;}
+.h-50v{height: 55vh !important;}
 .h-7v{height: 7vh}
 .h-5v{height: 5vh}
 .h-4v{height: 4vh}

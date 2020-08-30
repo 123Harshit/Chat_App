@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import user1 from '../../Assets/img/user1.png'
-import user2 from '../../Assets/img/user2.png'
 import send from '../../Assets/img/send.png'
 
 class RightBody extends Component{
@@ -28,7 +27,7 @@ class RightBody extends Component{
         return(
             <div className="dis-flex flex-col">
                 <nav className="navbar navbar-default bg-primary rounded dis-flex flex-row mb-4">
-                            <img src={user1} alt="User0" style={{width:'50px', height:'50px', marginLeft:'8px'}}/>
+                            <img className="rounded-circle" src={user1} alt="User0" style={{width:'50px', height:'50px', marginLeft:'8px'}}/>
                             <div className="dis-flex flex-col mr-auto pl-4">
                                 <div className="h4">{this.props.currentUser.name}</div>
                                 <div className="b2">{this.props.currentUser.last_seen}</div>
@@ -37,6 +36,7 @@ class RightBody extends Component{
                         <div className="rounded h-100 mb-4 h-50v" style={{overflowY:'scroll'}}>
                             {/* {this.props.currentUser.messages}
                             {console.log(this.props.currentUser.messages)} */}
+
                             {this.props.currentUser.messages.map((message)=>{
                                 return <div className="b1 my-2 dis-flex">
                                         <div className="rounded ml-auto py-3 px-2 bg-primary ">{message}</div>
