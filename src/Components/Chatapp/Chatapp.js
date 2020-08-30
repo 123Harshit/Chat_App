@@ -7,6 +7,10 @@ import user1 from '../../Assets/img/user1.png'
 import user2 from '../../Assets/img/user2.png'
 import send from '../../Assets/img/send.png'
 
+import s from '../../Assets/img/s.png'
+import d from '../../Assets/img/df.jpg'
+import r from '../../Assets/img/r.png'
+
 import RightBody from '../RightBody/RightBody'
 class Chatapp extends Component{
     constructor(props){
@@ -18,49 +22,56 @@ class Chatapp extends Component{
                     name:'Dad',
                     messages:[],
                     last_message:"How are You?",
-                    last_seen: "Last Seen Today at 6:00AM"
+                    last_seen: "Last Seen Today at 6:00AM",
+                    last_message_status: r
                 },
                 {
                     dp:'2',
                     name:'Mom',
                     messages:[],
                     last_message:"Hi There",
-                    last_seen: "Last Seen Today at 11:40AM"
+                    last_seen: "Last Seen Today at 11:40AM",
+                    last_message_status: s
                 },
                 {
                     dp:'3',
                     name:'Archit',
                     messages:[],
                     last_message:"Tommorow is Holiday",
-                    last_seen: "Last Seen Yesterday at 11:39PM"
+                    last_seen: "Last Seen Yesterday at 11:39PM",
+                    last_message_status: d
                 },
                 {
                     dp:'4',
                     name:'Piyush',
                     messages:[],
                     last_message:"Happy Birthday",
-                    last_seen: "Last Seen Today at 3:35AM"
+                    last_seen: "Last Seen Today at 3:35AM",
+                    last_message_status: s
                 },
                 {
                     dp:'5',
                     name:'Mohit',
                     messages:[],
                     last_message:"Congratulations",
-                    last_seen: "Online"
+                    last_seen: "Online",
+                    last_message_status: d
                 },
                 {
                     dp:'6',
                     name:'Solzar',
                     messages:[],
                     last_message:"Happy Day!",
-                    last_seen: "Last Seen Today at 10:50AM"
+                    last_seen: "Last Seen Today at 10:50AM",
+                    last_message_status: s
                 },
                 {
                     dp:'7',
                     name:'Chiya Ben',
                     messages:[],
                     last_message:"Bewkoof",
-                    last_seen: "Last Seen Today at 2PM"
+                    last_seen: "Last Seen Today at 2PM",
+                    last_message_status: r
                 }
     
             ],
@@ -74,19 +85,21 @@ class Chatapp extends Component{
         this.setState({user:true, currentUser:user})
     }
     addMessageHere(msg, id){
-        this.state.users.map((user)=>{
-            if(user.dp===id){
-                this.setState(()=>{
-                    const msgs = user.messages.push(msg)
-                    console.log(msgs);
-                    return{
-                        msgs
-                    }
-                })
-                console.log(user.messages)
+        var pushed = false;
+        this.setState((state)=>{
+            if(!pushed){
+                state.users[id-1].messages.push(msg)
+                pushed = true
             }
         })
-
+        this.setState(
+            this.state.users.map((user)=>{
+                if(user.dp===id){
+                    user.last_message = msg
+                }
+            })
+        )
+        //console.log(this.state.users[id-1])
     }
     render(){
         return(
@@ -98,7 +111,7 @@ class Chatapp extends Component{
                             <img className="rounded-circle mr-auto" alt="Profile" src={dp} style={{width:'35px', height:'35px'}}/>
                             <img className="rounded-circle" alt="Status" src={status} style={{width:'50px', height:'50px'}}/>
                             <img className="rounded dp cursor-pointer ml-auto" src={menu} id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false" alt="Display Pic" style={{width:'50px', height:'50px'}}/>
-                                   <ul className=" bg-dark dropdown-menu dropdown-menu-right animate__animated animate__fadeIn animate__faster shadow-sm" style={{color:'white'}} aria-labelledby="navbarDropdown">
+                                   <ul className="text-black pl-2 bg-dark dropdown-menu dropdown-menu-right animate__animated animate__fadeIn animate__faster shadow-sm" style={{color:'white'}} aria-labelledby="navbarDropdown">
                                         <li name="NewGroup" target="#">New Group</li>
                                         <li  name="Starred" target="#">Starred</li>
                                         <li  name="Settings" target="#">Settings</li>
@@ -108,11 +121,15 @@ class Chatapp extends Component{
                         <div className="hr"></div>
                         <input className="nor-bor h-7v" type="text" placeholder="Search ..."/>
                         <div className="dis-flex flex-col spread mt-4">{this.state.users.map((user)=>{
-                                            return <div className="card h4 w-100 h-100 dis-flex flex-row px-4 py-4">
-                                                <img src={user1} alt="User0" style={{width:'50px', height:'50px'}}/>
+                                            return <div className="card h5 w-100 h-100 dis-flex flex-row px-4 py-4">
+                                                <img className="rounded-circle" src={user1} alt="User0" style={{width:'50px', height:'50px'}}/>
                                                 <div className="dis-flex flex-col ml-4" onClick={()=>this.showUser(user)}>
                                                     <div>{user.name}</div>
-                                                    <div className="b1">{user.last_message}</div>
+                                                    <div className="dis-flex flex-row">
+                                                        <img className="rounded-circle" src={user.last_message_status} alt="Read" style={{width:'20px', height:'20px', marginTop:'0px', marginRight:'2px'}}/>
+                                                        <div className="b1">{user.last_message}</div>
+                                                    </div>
+                                                    
                                                 </div>
                                                 </div>
                          })}</div>
@@ -123,8 +140,8 @@ class Chatapp extends Component{
                             ? 
                             <RightBody currentUser={this.state.currentUser} addMessage={this.addMessageHere}/>
                             :
-                            <div className="h1">
-                                Welcome
+                            <div className="h1" style={{marginLeft:'auto', marginRight:'auto'}}>
+                                Start Conversation
                             </div>
                         }
                     </div>
