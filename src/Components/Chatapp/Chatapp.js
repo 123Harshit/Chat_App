@@ -9,34 +9,84 @@ import send from '../../Assets/img/send.png'
 
 import RightBody from '../RightBody/RightBody'
 class Chatapp extends Component{
-    state = {
-        users : [
-            {
-                dp:'1',
-                name:'User1'
-            },
-            {
-                dp:'2',
-                name:'User2'
-            },
-            {
-                dp:'3',
-                name:'User3'
-            },
-            {
-                dp:'4',
-                name:'User4'
-            },
-            {
-                dp:'5',
-                name:'User5'
-            },
-            {
-                dp:'6',
-                name:'User6'
+    constructor(props){
+        super(props);
+        this.state = {
+            users : [
+                {
+                    dp:'1',
+                    name:'Dad',
+                    messages:[],
+                    last_message:"How are You?",
+                    last_seen: "Last Seen Today at 6:00AM"
+                },
+                {
+                    dp:'2',
+                    name:'Mom',
+                    messages:[],
+                    last_message:"Hi There",
+                    last_seen: "Last Seen Today at 11:40AM"
+                },
+                {
+                    dp:'3',
+                    name:'Archit',
+                    messages:[],
+                    last_message:"Tommorow is Holiday",
+                    last_seen: "Last Seen Yesterday at 11:39PM"
+                },
+                {
+                    dp:'4',
+                    name:'Piyush',
+                    messages:[],
+                    last_message:"Happy Birthday",
+                    last_seen: "Last Seen Today at 3:35AM"
+                },
+                {
+                    dp:'5',
+                    name:'Mohit',
+                    messages:[],
+                    last_message:"Congratulations",
+                    last_seen: "Online"
+                },
+                {
+                    dp:'6',
+                    name:'Solzar',
+                    messages:[],
+                    last_message:"Happy Day!",
+                    last_seen: "Last Seen Today at 10:50AM"
+                },
+                {
+                    dp:'7',
+                    name:'Chiya Ben',
+                    messages:[],
+                    last_message:"Bewkoof",
+                    last_seen: "Last Seen Today at 2PM"
+                }
+    
+            ],
+            user: false,
+            currentUser:{}
+        }
+        this.addMessageHere = this.addMessageHere.bind(this);
+    }
+    
+    showUser(user){
+        this.setState({user:true, currentUser:user})
+    }
+    addMessageHere(msg, id){
+        this.state.users.map((user)=>{
+            if(user.dp===id){
+                this.setState(()=>{
+                    const msgs = user.messages.push(msg)
+                    console.log(msgs);
+                    return{
+                        msgs
+                    }
+                })
+                console.log(user.messages)
             }
+        })
 
-        ]
     }
     render(){
         return(
@@ -60,31 +110,23 @@ class Chatapp extends Component{
                         <div className="dis-flex flex-col spread mt-4">{this.state.users.map((user)=>{
                                             return <div className="card h4 w-100 h-100 dis-flex flex-row px-4 py-4">
                                                 <img src={user1} alt="User0" style={{width:'50px', height:'50px'}}/>
-                                                <div className="dis-flex flex-col ml-4">
+                                                <div className="dis-flex flex-col ml-4" onClick={()=>this.showUser(user)}>
                                                     <div>{user.name}</div>
-                                                    <div className="b1">Last Message</div>
+                                                    <div className="b1">{user.last_message}</div>
                                                 </div>
                                                 </div>
                          })}</div>
             
                     </div>
                     <div className="col-md-8 dis-flex flex-col pt-4">
-                        <nav className="navbar navbar-default bg-primary rounded dis-flex flex-row mb-4">
-                            <img src={user1} alt="User0" style={{width:'50px', height:'50px', marginLeft:'8px'}}/>
-                            <div className="dis-flex flex-col mr-auto pl-4">
-                                <div className="h4">Harshit</div>
-                                <div className="b2">Last Seen today at 12:00 AM</div>
+                        {this.state.user
+                            ? 
+                            <RightBody currentUser={this.state.currentUser} addMessage={this.addMessageHere}/>
+                            :
+                            <div className="h1">
+                                Welcome
                             </div>
-                        </nav>
-                        <div className="rounded bg-primary h-100 mb-4"></div>
-                        <nav className="navbar navbar-default bg-primary rounded mb-4">
-                            <div className="col-md-11">
-                                <textarea className="form-control" rows="1" id="comment">Start Typing Here</textarea>
-                           </div>
-                            <div className="col-md-1">
-                                <img className="rounded-circle" src={send} alt="User0" style={{width:'40px', height:'40px', marginLeft:'8px', marginRight:'8px'}}/>
-                            </div>
-                        </nav>
+                        }
                     </div>
                 </div>
             </div>
